@@ -8,9 +8,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="split-screen">
+    <!-- Selection Screen -->
+    <div id="selection-screen" class="selection-screen">
+        <div class="selection-content">
+            <h1>Λύσε τις πράξεις στο Πι και Φι! 🚀</h1>
+            <p>Επίλεξε πώς θέλετε να παίξετε:</p>
+            <div class="selection-buttons">
+                <button id="btn-tablet" class="action-btn choice-btn">
+                    <span class="icon">📱</span>
+                    <span>Τάμπλετ</span>
+                    <small>(Απέναντι)</small>
+                </button>
+                <button id="btn-board" class="action-btn choice-btn">
+                    <span class="icon">🖥️</span>
+                    <span>Διαδραστικός Πίνακας</span>
+                    <small>(Δίπλα-Δίπλα)</small>
+                </button>
+            </div>
+        </div>
+        <div class="characters selection-character">
+            <div class="mascot pencil">
+                <div class="pencil-eraser"></div>
+                <div class="pencil-metal"></div>
+                <div class="pencil-body">
+                    <div class="eyes">
+                        <div class="eye"><div class="pupil"></div></div>
+                        <div class="eye"><div class="pupil"></div></div>
+                    </div>
+                    <div class="smile"></div>
+                </div>
+                <div class="pencil-wood"><div class="pencil-tip"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen (Hidden initially) -->
+    <div id="game-container" class="split-screen hidden">
         
-        <!-- Player 1 (Top, rotated) -->
+        <!-- Player 1 -->
         <div class="player-board player-1">
             <header>
                 <h2>Παίκτης 1</h2>
@@ -114,6 +149,9 @@
         </div>
 
     </div>
+    
+    <button id="btn-back" class="cmd-btn back-btn hidden">↩️ Πίσω</button>
+
     <script src="script.js?v=2"></script>
 </body>
 </html>

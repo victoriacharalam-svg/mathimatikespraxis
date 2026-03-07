@@ -1,5 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // Screens
+    const selectionScreen = document.getElementById('selection-screen');
+    const gameContainer = document.getElementById('game-container');
+    const btnTablet = document.getElementById('btn-tablet');
+    const btnBoard = document.getElementById('btn-board');
+    const btnBack = document.getElementById('btn-back');
+
     // Player State
     const players = {
         1: { score: 0, answerStr: '' },
@@ -141,18 +148,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create simple confetti effect originating from winner's side
     function createConfetti(winnerPlayer) {
+        // ... (confetti creation code is same, but respect tablet/board mode)
+        const isTablet = gameContainer.classList.contains('tablet-mode');
         const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#9D75CB', '#45B7D1'];
         for (let i = 0; i < 40; i++) {
             const confetti = document.createElement('div');
             confetti.classList.add('confetti');
             
-            // If p1 won (top), drop from top. If p2 won (bottom), start at middle or bottom
-            if (winnerPlayer === 1) {
-                confetti.style.top = '-10px';
-                confetti.style.left = Math.random() * 100 + 'vw';
+            if (isTablet) {
+                if (winnerPlayer === 1) {
+                    confetti.style.top = '-10px';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                } else {
+                    confetti.style.bottom = '50vh';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                }
             } else {
-                confetti.style.bottom = '50vh';
-                confetti.style.left = Math.random() * 100 + 'vw';
+                // Board mode (side by side)
+                confetti.style.top = '-10px';
+                if (winnerPlayer === 1) {
+                    confetti.style.left = Math.random() * 50 + 'vw'; // Left half
+                } else {
+                    confetti.style.left = (Math.random() * 50 + 50) + 'vw'; // Right half
+                }
             }
             
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
@@ -166,6 +184,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Initialize first problem
-    generateProblem();
+    // View Selection Logic
+    function startGame(mode) {
+        // Reset scores
+        players[1].score = 0;
+        players[2].score = 0;
+        scoreEls[1].textContent = 0;
+        scoreEls[2].textContent = 0;
+
+        // Apply mode class
+        if (mode === 'tablet') {
+            gameContainer.classList.add('tablet-mode');
+            gameContainer.classList.remove('board-mode');
+        } else {
+            gameContainer.classList.add('board-mode');
+            gameContainer.classList.remove('tablet-mode');
+        }
+
+        // Switch screens
+        selectionScreen.classList.add('hidden');
+        gameContainer.classList.remove('hidden');
+        btnBack.classList.remove('hidden');
+
+        // Start first problem
+        generateProblem();
+    }
+
+    btnTablet.addEventListener('click', () => startGame('tablet'));
+    btnBoard.addEventListener('click', () => startGame('board'));
+
+    btnBack.addEventListener('click', () => {
+        isProblemActive = false; // Stop timers/inputs
+        gameContainer.classList.add('hidden');
+        btnBack.classList.add('hidden');
+        selectionScreen.classList.remove('hidden');
+    });
+
 });

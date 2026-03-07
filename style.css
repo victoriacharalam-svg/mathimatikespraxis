@@ -38,6 +38,164 @@ h1, h2 {
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    transition: all 0.3s ease;
+}
+
+/* Tablet mode (Default split-screen) */
+.split-screen.tablet-mode .player-1 {
+    transform: rotate(180deg);
+}
+
+/* Interactive Board mode (Side by Side) */
+.split-screen.board-mode {
+    flex-direction: row;
+}
+
+.split-screen.board-mode .divider {
+    height: 100%;
+    width: 30px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+.split-screen.board-mode .divider h1 {
+    font-size: 1.1rem;
+    transform: rotate(180deg); /* Counteract the wrapper rotation if needed */
+}
+
+/* Selection Screen */
+.selection-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-p2);
+    background-image: radial-gradient(circle, #fff 10%, transparent 11%), radial-gradient(circle, #fff 10%, transparent 11%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.selection-content {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 50px 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1);
+    max-width: 800px;
+    width: 90%;
+    text-align: center;
+    border: 8px dashed white;
+    position: relative;
+    z-index: 2;
+}
+
+.selection-content h1 {
+    font-size: 3rem;
+    color: var(--accent-purple);
+    margin-bottom: 20px;
+}
+
+.selection-content p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-text);
+    margin-bottom: 40px;
+}
+
+.selection-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.choice-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 250px;
+    height: 200px;
+    border-radius: 20px;
+    border: 5px solid transparent;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.choice-btn .icon {
+    font-size: 4rem;
+}
+
+.choice-btn span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-text);
+    font-family: 'Fredoka One', cursive;
+}
+
+.choice-btn small {
+    font-size: 1rem;
+    color: #666;
+}
+
+#btn-tablet {
+    border-color: var(--accent-blue);
+}
+
+#btn-board {
+    border-color: var(--accent-green);
+}
+
+#btn-tablet:hover {
+    background-color: #E6F7FF;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(69, 183, 209, 0.3);
+}
+
+#btn-board:hover {
+    background-color: #E6FFF9;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(78, 205, 196, 0.3);
+}
+
+.selection-character {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    transform: scale(1);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.back-btn {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 500;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border: 2px dashed #333 !important;
+    border-radius: 20px !important;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1) !important;
+    color: #333 !important;
+}
+
+.back-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 transparent !important;
 }
 
 .player-board {
@@ -55,8 +213,8 @@ h1, h2 {
 }
 
 .player-1 {
-    transform: rotate(180deg);
     background-color: var(--bg-p1);
+    /* Transformation handled by .tablet-mode class now */
 }
 
 .player-2 {
