@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Fun!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Math Adventure! 🚀</h1>
+            <div class="score-board">
+                <span>Score: <span id="score">0</span></span>
+            </div>
+        </header>
+
+        <main class="game-area">
+            <div class="equation-container">
+                <span id="num1" class="number">?</span>
+                <span id="operator" class="operator">+</span>
+                <span id="num2" class="number">?</span>
+                <span class="equals">=</span>
+                <input type="number" id="answer" placeholder="?" autocomplete="off" autofocus>
+            </div>
+            
+            <button id="check-btn" class="action-btn">Check Answer!</button>
+            <button id="next-btn" class="action-btn hidden">Next Question ➡️</button>
+
+            <div id="feedback" class="feedback"></div>
+        </main>
+
+        <div class="characters">
+            <div class="mascot">🦉</div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

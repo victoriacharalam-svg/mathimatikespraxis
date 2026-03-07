@@ -1,0 +1,226 @@
+:root {
+    --bg-color: #87CEEB; /* Sky blue */
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --primary-text: #333;
+    --accent-red: #FF6B6B;
+    --accent-green: #4ECDC4;
+    --accent-yellow: #FFE66D;
+    --accent-purple: #9D75CB;
+    --accent-blue: #45B7D1;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--bg-color);
+    background-image: radial-gradient(circle, #fff 10%, transparent 11%), radial-gradient(circle, #fff 10%, transparent 11%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--primary-text);
+}
+
+.app-container {
+    background-color: var(--card-bg);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    border: 8px solid white;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-family: 'Fredoka One', cursive;
+    color: var(--accent-purple);
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.score-board {
+    font-size: 1.5rem;
+    background-color: var(--accent-yellow);
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #444;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1);
+}
+
+.game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.equation-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-family: 'Fredoka One', cursive;
+    font-size: 4rem;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.number {
+    background-color: var(--accent-blue);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 6px 0 #2A8FA8;
+    min-width: 80px;
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.operator, .equals {
+    color: var(--accent-red);
+}
+
+#answer {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.5rem;
+    width: 120px;
+    text-align: center;
+    border: 4px solid var(--accent-purple);
+    border-radius: 20px;
+    padding: 10px;
+    color: var(--primary-text);
+    outline: none;
+    transition: all 0.3s;
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+}
+
+#answer:focus {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 15px rgba(78, 205, 196, 0.5);
+}
+
+/* Chrome, Safari, Edge, Opera - hide spin buttons */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox - hide spin buttons */
+input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.action-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#check-btn {
+    background-color: var(--accent-green);
+    color: white;
+    box-shadow: 0 6px 0 #3BA59C, 0 15px 20px rgba(0,0,0,0.2);
+}
+
+#next-btn {
+    background-color: var(--accent-blue);
+    color: white;
+    box-shadow: 0 6px 0 #2A8FA8, 0 15px 20px rgba(0,0,0,0.2);
+}
+
+.action-btn:active {
+    transform: translateY(6px);
+    box-shadow: 0 0 0 transparent, 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.feedback {
+    font-size: 2rem;
+    font-weight: bold;
+    min-height: 50px;
+    margin-top: 10px;
+    font-family: 'Fredoka One', cursive;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.feedback.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.feedback.correct {
+    color: var(--accent-green);
+}
+
+.feedback.wrong {
+    color: var(--accent-red);
+}
+
+.characters {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    font-size: 5rem;
+    animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.pop-animation {
+    animation: pop 0.4s ease-in-out;
+}
+
+/* Confetti styling */
+.confetti {
+    position: fixed;
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    animation: fall linear forwards;
+    z-index: 1000;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(720deg);
+    }
+}
