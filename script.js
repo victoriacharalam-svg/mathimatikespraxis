@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Player State
     const players = {
-        1: { score: 0, answerStr: '', currentAnswer: 0, isActive: false, usedProblems: new Set() },
-        2: { score: 0, answerStr: '', currentAnswer: 0, isActive: false, usedProblems: new Set() }
+        1: { score: 0, answerStr: '', currentAnswer: 0, isActive: false, usedProblems: new Set(), mistakenProblems: [] },
+        2: { score: 0, answerStr: '', currentAnswer: 0, isActive: false, usedProblems: new Set(), mistakenProblems: [] }
     };
 
     // Elements
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let num1, num2, answer, operator;
         let problemKey;
         let attempts = 0;
-        const maxAttempts = 100; // prevent infinite loops if all are exhausted early
+        const maxAttempts = 100; // max combos to try before assuming exhaustion
 
         do {
             if (selectedOperation === 'add10') {
@@ -92,15 +92,27 @@ document.addEventListener('DOMContentLoaded', () => {
             problemKey = `${num1}${operator}${num2}`;
             attempts++;
             
-            // If we've made too many attempts to find a unique one, assume we've exhausted all options
-            // and clear the set to start fresh.
+            // If all combinations seem exhausted
             if (attempts > maxAttempts) {
-                players[p].usedProblems.clear();
-                break;
+                // If there are mistakes, prioritize drawing from them
+                if (players[p].mistakenProblems.length > 0) {
+                    const savedError = players[p].mistakenProblems.shift();
+                    num1 = savedError.num1;
+                    num2 = savedError.num2;
+                    answer = savedError.answer;
+                    operator = savedError.operator;
+                    problemKey = `${num1}${operator}${num2}`;
+                    break;
+                } else {
+                    // Otherwise just clear the memory and keep generating randomly
+                    players[p].usedProblems.clear();
+                    break;
+                }
             }
         } while (players[p].usedProblems.has(problemKey));
 
         players[p].usedProblems.add(problemKey);
+        players[p].currentProblemAttempt = { num1, num2, answer, operator, handledMistake: false };
         opEls[p].textContent = operator;
         players[p].currentAnswer = answer;
 
@@ -148,6 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
             feedbackEls[player].className = 'feedback show wrong';
             players[player].answerStr = ''; // clear for retry
             updateAnswerDisplay(player);
+            
+            // If they made a mistake on this newly drawn problem, save it
+            if (!players[player].currentProblemAttempt.handledMistake) {
+                players[player].mistakenProblems.push(players[player].currentProblemAttempt);
+                players[player].currentProblemAttempt.handledMistake = true; // ensure we only push it once
+            }
         }
     }
 
@@ -260,6 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
         players[2].score = 0;
         players[1].usedProblems.clear();
         players[2].usedProblems.clear();
+        players[1].mistakenProblems = [];
+        players[2].mistakenProblems = [];
         scoreEls[1].textContent = 0;
         scoreEls[2].textContent = 0;
         remainingTime = selectedTime;
