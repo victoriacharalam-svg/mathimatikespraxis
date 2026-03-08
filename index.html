@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Λύσε τις πράξεις στο Πι και Φι!</title>
-    <link rel="stylesheet" href="style.css?v=28">
+    <link rel="stylesheet" href="style.css?v=29">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -140,22 +140,30 @@
         <div class="selection-content">
             <h1>Πόσο χρόνο θέλεις; ⏱️</h1>
             <p>Επίλεξε τη διάρκεια του παιχνιδιού:</p>
-            <div class="selection-buttons">
-                <button class="action-btn choice-btn time-btn" data-time="10">
-                    <span class="icon">⏳</span>
-                    <span>10 δευτ.</span>
+            <div class="selection-buttons time-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; width: 100%; max-width: 800px; padding: 0 10px;">
+                <button class="action-btn choice-btn time-btn" data-time="10" style="margin: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 10px; min-height: unset; min-width: unset;">
+                    <span class="icon" style="font-size: 2.5rem;">⏳</span>
+                    <span style="font-size: 1.2rem;">10 δευτ.</span>
                 </button>
-                <button class="action-btn choice-btn time-btn" data-time="20">
-                    <span class="icon">⏳</span>
-                    <span>20 δευτ.</span>
+                <button class="action-btn choice-btn time-btn" data-time="20" style="margin: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 10px; min-height: unset; min-width: unset;">
+                    <span class="icon" style="font-size: 2.5rem;">⏳</span>
+                    <span style="font-size: 1.2rem;">20 δευτ.</span>
                 </button>
-                <button class="action-btn choice-btn time-btn" data-time="30">
-                    <span class="icon">⌛</span>
-                    <span>30 δευτ.</span>
+                <button class="action-btn choice-btn time-btn" data-time="30" style="margin: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 10px; min-height: unset; min-width: unset;">
+                    <span class="icon" style="font-size: 2.5rem;">⌛</span>
+                    <span style="font-size: 1.2rem;">30 δευτ.</span>
                 </button>
-                <button class="action-btn choice-btn time-btn" data-time="60">
-                    <span class="icon">⌛</span>
-                    <span>1 λεπτό</span>
+                <button class="action-btn choice-btn time-btn" data-time="60" style="margin: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 10px; min-height: unset; min-width: unset;">
+                    <span class="icon" style="font-size: 2.5rem;">⌛</span>
+                    <span style="font-size: 1.2rem;">1 λεπτό</span>
+                </button>
+                <button class="action-btn choice-btn time-btn" data-time="180" style="margin: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 10px; min-height: unset; min-width: unset;">
+                    <span class="icon" style="font-size: 2.5rem;">🕰️</span>
+                    <span style="font-size: 1.2rem;">3 λεπτά</span>
+                </button>
+                <button class="action-btn choice-btn time-btn" data-time="300" style="margin: 0; width: 100%; height: 100%; box-sizing: border-box; padding: 10px; min-height: unset; min-width: unset;">
+                    <span class="icon" style="font-size: 2.5rem;">⏰</span>
+                    <span style="font-size: 1.2rem;">5 λεπτά</span>
                 </button>
             </div>
             <button id="btn-back-to-mode" class="cmd-btn back-btn" style="position:relative; margin-top:30px;">↩️ Πίσω</button>
@@ -298,6 +306,6 @@
 
     <button id="btn-back" class="cmd-btn back-btn hidden">↩️ Πίσω</button>
 
-    <script src="script.js?v=28"></script>
+    <script src="script.js?v=29"></script>
 </body>
 </html>
