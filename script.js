@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let num1, num2, answer, operator;
         let problemKey;
         let attempts = 0;
-        const maxAttempts = 100; // max combos to try before assuming exhaustion
+        const maxAttempts = 2000; // increase attempts to ensure we find all combinations mathematically
 
         do {
             if (selectedOperation === 'add10') {
