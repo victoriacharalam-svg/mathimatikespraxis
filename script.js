@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedTime = 0;
     let timerInterval = null;
     let remainingTime = 0;
+    let isReplayMode = false;
 
     // Player State
     const players = {
@@ -56,6 +57,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
         feedbackEls[p].className = 'feedback';
         feedbackEls[p].textContent = '';
+
+        if (isReplayMode) {
+            if (players[p].mistakenProblems.length === 0) {
+                players[p].isActive = false;
+                opEls[p].textContent = '✔️';
+                answerEls[p].textContent = '';
+                num1Els[p].textContent = '';
+                num2Els[p].textContent = '';
+                checkEndMistakesReplay();
+                return;
+            }
+            const mistake = players[p].mistakenProblems.shift();
+            let num1 = mistake.num1;
+            let num2 = mistake.num2;
+            let answer = mistake.answer;
+            let operator = mistake.operator;
+            players[p].currentProblemAttempt = { num1, num2, answer, operator, handledMistake: true }; // already handled so it doesn't get saved again
+            players[p].currentAnswer = answer;
+            opEls[p].textContent = operator;
+            num1Els[p].textContent = num1;
+            num2Els[p].textContent = num2;
+            num1Els[p].classList.add('pop-animation');
+            num2Els[p].classList.add('pop-animation');
+            setTimeout(() => {
+                num1Els[p].classList.remove('pop-animation');
+                num2Els[p].classList.remove('pop-animation');
+            }, 400);
+            return;
+        }
 
         let num1, num2, answer, operator;
         let problemKey;
@@ -142,10 +172,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (val === players[player].currentAnswer) {
             // Correct format: this player wins the round
             players[player].isActive = false; // Disable further inputs for this round
-            players[player].score += 10;
-            scoreEls[player].textContent = players[player].score;
-            scoreEls[player].parentElement.classList.add('pop-animation');
-            setTimeout(() => scoreEls[player].parentElement.classList.remove('pop-animation'), 400);
+            if (!isReplayMode) {
+                players[player].score += 10;
+                scoreEls[player].textContent = players[player].score;
+                scoreEls[player].parentElement.classList.add('pop-animation');
+                setTimeout(() => scoreEls[player].parentElement.classList.remove('pop-animation'), 400);
+            }
 
             feedbackEls[player].textContent = 'Σωστά! 🎉';
             feedbackEls[player].className = 'feedback show win';
@@ -251,6 +283,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function checkEndMistakesReplay() {
+        const p1Done = !players[1].isActive;
+        const p2Done = (selectedMode === 'single') || (!players[2].isActive);
+        if (p1Done && p2Done) {
+            endGameMistakesReplay();
+        }
+    }
+
+    function endGameMistakesReplay() {
+        players[1].isActive = false;
+        players[2].isActive = false;
+        isReplayMode = false;
+        
+        let resultHtml = `Μπράβο! 🎉<br>Ολοκλήρωσες τέλεια τη διόρθωση των λαθών σου!`;
+        createConfetti(1);
+        if (selectedMode !== 'single') {
+            createConfetti(2);
+        }
+        
+        document.getElementById('game-results').innerHTML = resultHtml;
+        btnReplayMistakes.classList.add('hidden');
+        gameOverScreen.classList.remove('hidden');
+        btnBack.classList.add('hidden');
+    }
+
     // View Selection Logic
     document.querySelectorAll('.op-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -273,28 +330,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-        btnReplayMistakes.addEventListener('click', () => {
-            // Only start with time if we have mistakes
-            startGameWithTime({ replayMistakes: true });
-        });
+    btnReplayMistakes.addEventListener('click', () => {
+        startMistakesReplay();
+    });
 
-    function startGameWithTime(options = { replayMistakes: false }) {
+    function startMistakesReplay() {
+        isReplayMode = true;
+        clearInterval(timerInterval);
+        
+        // Reset visually, leave score alone or clear
+        timerEls[1].textContent = '∞';
+        timerEls[2].textContent = '∞';
+        timerEls[1].classList.remove('timer-pulse');
+        timerEls[2].classList.remove('timer-pulse');
+
+        // Apply mode class
+        gameContainer.className = 'split-screen'; 
+        if (selectedMode === 'tablet') {
+            gameContainer.classList.add('tablet-mode');
+        } else if (selectedMode === 'board') {
+            gameContainer.classList.add('board-mode');
+        } else if (selectedMode === 'single') {
+            gameContainer.classList.add('single-mode');
+        }
+
+        timeSelectionScreen.classList.add('hidden');
+        gameOverScreen.classList.add('hidden');
+        gameContainer.classList.remove('hidden');
+        btnBack.classList.remove('hidden');
+
+        // Start problem (will pull from mistakes)
+        generateProblem(1);
+        if (selectedMode !== 'single') {
+            generateProblem(2);
+        } else {
+            players[2].isActive = false;
+        }
+    }
+
+    function startGameWithTime() {
+        isReplayMode = false;
         // Reset scores and timers
         players[1].score = 0;
         players[2].score = 0;
         
-        // If not replaying mistakes, clear history completely
-        if (!options.replayMistakes) {
-            players[1].usedProblems.clear();
-            players[2].usedProblems.clear();
-            players[1].mistakenProblems = [];
-            players[2].mistakenProblems = [];
-        } else {
-            // If replaying mistakes, we want to clear the 'usedProblems' set so they can be asked again,
-            // but keep the 'mistakenProblems' array intact as our queue.
-            players[1].usedProblems.clear();
-            players[2].usedProblems.clear();
-        }
+        // Clear history completely for new timed game
+        players[1].usedProblems.clear();
+        players[2].usedProblems.clear();
+        players[1].mistakenProblems = [];
+        players[2].mistakenProblems = [];
+        
         scoreEls[1].textContent = 0;
         scoreEls[2].textContent = 0;
         remainingTime = selectedTime;
