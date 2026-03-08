@@ -26,7 +26,7 @@ body {
 }
 
 h1, h2 {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Comic Neue', sans-serif;
     color: var(--primary-text);
     text-shadow: 2px 2px 0 rgba(255,255,255,0.7);
     margin-bottom: 5px;
@@ -149,7 +149,7 @@ h1, h2 {
     font-size: 1.5rem;
     font-weight: bold;
     color: var(--primary-text);
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Comic Neue', sans-serif;
 }
 
 .choice-btn small {
@@ -301,7 +301,7 @@ header h2 {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Comic Neue', sans-serif;
     font-size: 2.5rem;
     flex-wrap: wrap;
 }
@@ -331,7 +331,7 @@ header h2 {
 }
 
 .answer-box {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Comic Neue', sans-serif;
     font-size: 2.5rem;
     width: 80px;
     height: 70px;
@@ -355,7 +355,7 @@ header h2 {
 }
 
 .numpad button {
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Comic Neue', sans-serif;
     font-size: 1.5rem;
     padding: 10px;
     border: none;
@@ -397,7 +397,7 @@ header h2 {
     font-size: 1.2rem;
     font-weight: bold;
     min-height: 30px;
-    font-family: 'Comic Neue', cursive;
+    font-family: 'Comic Neue', sans-serif;
     opacity: 0;
     transform: scale(0.8);
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
