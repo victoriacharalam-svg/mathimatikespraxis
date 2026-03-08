@@ -95,14 +95,15 @@ h1, h2 {
 .selection-content {
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 30px;
-    padding: 50px 40px;
+    padding: 60px 40px 40px 40px; /* Increased top padding to push title down */
     box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1);
-    max-width: 900px;
-    width: 90%;
+    max-width: 1000px; /* Increased to allow 3 buttons side-by-side */
+    width: 95%;
     text-align: center;
     border: 8px dashed white;
     position: relative;
     z-index: 2;
+    margin-top: 30px; /* Push the whole box slightly down from top edge */
 }
 
 .selection-content h1 {
@@ -121,8 +122,9 @@ h1, h2 {
 .selection-buttons {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 20px;
+    flex-wrap: nowrap; /* Force buttons to stay side-by-side on desktop */
 }
 
 .choice-btn {
@@ -131,14 +133,15 @@ h1, h2 {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 250px;
-    height: 200px;
+    flex: 1; /* Make all 3 buttons equal width */
+    min-width: 220px; /* ensure they don't get too squeezed before media query kicks in */
     border-radius: 20px;
     border: 5px solid transparent;
     background-color: white;
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: all 0.2s ease;
+    padding: 20px 10px;
 }
 
 .choice-btn .icon {
@@ -505,15 +508,18 @@ header h2 {
         margin-bottom: 20px;
     }
     .selection-buttons {
+        flex-direction: column; /* Stack vertically only on mobile */
         gap: 15px;
     }
     .choice-btn {
         width: 100%;
-        max-width: 280px;
+        max-width: 320px;
+        min-width: 200px;
         height: auto;
-        padding: 15px 10px;
+        padding: 15px 15px;
         flex-direction: row;
         justify-content: flex-start;
+        margin: 0 auto;
     }
     .choice-btn .icon {
         font-size: 2.5rem;
