@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Λύσε τις πράξεις στο Πι και Φι!</title>
-    <link rel="stylesheet" href="style.css?v=25">
+    <link rel="stylesheet" href="style.css?v=26">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -13,9 +13,9 @@
         <div class="selection-content">
             <h1 style="margin-bottom: 5px; font-size: 2.5rem;">ΠΡΑΞΕΙΣ 📝</h1>
             <p style="margin-bottom: 15px; font-size: 1.2rem;">Επίλεξε τι είδους πράξεις θέλεις να λύσεις:</p>
-            <div class="selection-buttons op-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; width: 100%; max-width: 900px; padding: 0 10px;">
+            <div class="selection-buttons op-buttons">
                 <!-- 1. Addition to 10 -->
-                <button class="action-btn choice-btn op-btn" data-op="add10" style="margin: 0; width: 100%; padding: 10px; height: 100%;">
+                <button class="action-btn choice-btn op-btn" data-op="add10">
                     <span class="icon" style="color:var(--accent-red);">➕</span>
                     <div class="btn-text-container">
                         <span>Πρόσθεση</span>
@@ -23,7 +23,7 @@
                     </div>
                 </button>
                 <!-- 2. Addition Bridging 10 -->
-                <button class="action-btn choice-btn op-btn" data-op="addBridge" style="margin: 0; width: 100%; padding: 10px; height: 100%;">
+                <button class="action-btn choice-btn op-btn" data-op="addBridge">
                     <span class="icon" style="color:var(--accent-red);">🦘</span>
                     <div class="btn-text-container">
                         <span>Πρόσθεση</span>
@@ -31,7 +31,7 @@
                     </div>
                 </button>
                 <!-- 3. Addition 10 to 20 -->
-                <button class="action-btn choice-btn op-btn" data-op="addTeen" style="margin: 0; width: 100%; padding: 10px; height: 100%;">
+                <button class="action-btn choice-btn op-btn" data-op="addTeen">
                     <span class="icon" style="color:var(--accent-red);">2️⃣0️⃣</span>
                     <div class="btn-text-container">
                         <span>Πρόσθεση</span>
@@ -39,7 +39,7 @@
                     </div>
                 </button>
                 <!-- 4. Subtraction to 10 -->
-                <button class="action-btn choice-btn op-btn" data-op="sub10" style="margin: 0; width: 100%; padding: 10px; height: 100%;">
+                <button class="action-btn choice-btn op-btn" data-op="sub10">
                     <span class="icon" style="color:var(--accent-blue);">➖</span>
                     <div class="btn-text-container">
                         <span>Αφαίρεση</span>
@@ -47,7 +47,7 @@
                     </div>
                 </button>
                 <!-- 5. Subtraction Breaking 10 -->
-                <button class="action-btn choice-btn op-btn" data-op="subBreak" style="margin: 0; width: 100%; padding: 10px; height: 100%;">
+                <button class="action-btn choice-btn op-btn" data-op="subBreak">
                     <span class="icon" style="color:var(--accent-blue);">💥</span>
                     <div class="btn-text-container">
                         <span>Αφαίρεση</span>
@@ -55,7 +55,7 @@
                     </div>
                 </button>
                 <!-- 6. Subtraction 10 to 20 -->
-                <button class="action-btn choice-btn op-btn" data-op="subTeen" style="margin: 0; width: 100%; padding: 10px; height: 100%;">
+                <button class="action-btn choice-btn op-btn" data-op="subTeen">
                     <span class="icon" style="color:var(--accent-blue);">🧗</span>
                     <div class="btn-text-container">
                         <span>Αφαίρεση</span>
@@ -63,7 +63,7 @@
                     </div>
                 </button>
                 <!-- 7. Mixed -->
-                <button class="action-btn choice-btn op-btn" data-op="mix" style="margin: 0; width: 100%; grid-column: 1 / -1; justify-self: center; max-width: 400px; padding: 10px; height: 100%; border-color: var(--accent-purple);">
+                <button class="action-btn choice-btn op-btn" data-op="mix" style="grid-column: 1 / -1; justify-self: center; max-width: 400px; border-color: var(--accent-purple);">
                     <span class="icon" style="color:var(--accent-purple);">🎲</span>
                     <div class="btn-text-container">
                         <span>Πρόσθεση & Αφαίρεση</span>
@@ -298,6 +298,6 @@
 
     <button id="btn-back" class="cmd-btn back-btn hidden">↩️ Πίσω</button>
 
-    <script src="script.js?v=25"></script>
+    <script src="script.js?v=26"></script>
 </body>
 </html>

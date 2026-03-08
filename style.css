@@ -128,15 +128,20 @@ h1, h2 {
 }
 
 .op-buttons {
-    flex-wrap: wrap; /* allow wrapping to 2 rows of 2 for operations */
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 10px;
+    align-items: stretch; /* ensure all buttons stretch to same height */
+    justify-items: stretch;
 }
 
 .op-btn {
-    min-width: 200px;
-    max-width: 220px;
-    /* ensure 2 per row roughly on desktop */
-    flex: 1 1 40%; 
+    width: 100%;
+    margin: 0;
 }
 
 .choice-btn {
