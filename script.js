@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Screens
     const selectionScreen = document.getElementById('selection-screen');
     const gameContainer = document.getElementById('game-container');
+    const btnSingle = document.getElementById('btn-single');
     const btnTablet = document.getElementById('btn-tablet');
     const btnBoard = document.getElementById('btn-board');
     const btnBack = document.getElementById('btn-back');
@@ -145,12 +146,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function createConfetti(winnerPlayer) {
         // ... (confetti creation code is same, but respect tablet/board mode)
         const isTablet = gameContainer.classList.contains('tablet-mode');
+        const isSingle = gameContainer.classList.contains('single-mode');
         const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#9D75CB', '#45B7D1'];
         for (let i = 0; i < 40; i++) {
             const confetti = document.createElement('div');
             confetti.classList.add('confetti');
             
-            if (isTablet) {
+            if (isSingle) {
+                confetti.style.top = '-10px';
+                confetti.style.left = Math.random() * 100 + 'vw';
+            } else if (isTablet) {
                 if (winnerPlayer === 1) {
                     confetti.style.top = '-10px';
                     confetti.style.left = Math.random() * 100 + 'vw';
@@ -188,12 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreEls[2].textContent = 0;
 
         // Apply mode class
+        gameContainer.className = 'split-screen'; // Reset classes
         if (mode === 'tablet') {
             gameContainer.classList.add('tablet-mode');
-            gameContainer.classList.remove('board-mode');
-        } else {
+        } else if (mode === 'board') {
             gameContainer.classList.add('board-mode');
-            gameContainer.classList.remove('tablet-mode');
+        } else if (mode === 'single') {
+            gameContainer.classList.add('single-mode');
         }
 
         // Switch screens
@@ -203,9 +209,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Start first problem
         generateProblem(1);
-        generateProblem(2);
+        if (mode !== 'single') {
+            generateProblem(2);
+        } else {
+            players[2].isActive = false;
+        }
     }
 
+    btnSingle.addEventListener('click', () => startGame('single'));
     btnTablet.addEventListener('click', () => startGame('tablet'));
     btnBoard.addEventListener('click', () => startGame('board'));
 

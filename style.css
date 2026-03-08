@@ -64,6 +64,17 @@ h1, h2 {
     transform: rotate(180deg); /* Counteract the wrapper rotation if needed */
 }
 
+/* Single player mode */
+.split-screen.single-mode .player-2,
+.split-screen.single-mode .divider {
+    display: none !important;
+}
+
+.split-screen.single-mode .player-1 {
+    transform: none; /* Reset rotation */
+    height: 100vh;
+}
+
 /* Selection Screen */
 .selection-screen {
     position: fixed;
@@ -86,7 +97,7 @@ h1, h2 {
     border-radius: 30px;
     padding: 50px 40px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1);
-    max-width: 800px;
+    max-width: 900px;
     width: 90%;
     text-align: center;
     border: 8px dashed white;
@@ -146,12 +157,22 @@ h1, h2 {
     color: #666;
 }
 
+#btn-single {
+    border-color: var(--accent-red);
+}
+
 #btn-tablet {
     border-color: var(--accent-blue);
 }
 
 #btn-board {
     border-color: var(--accent-green);
+}
+
+#btn-single:hover {
+    background-color: #FFE6E6;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(255, 107, 107, 0.3);
 }
 
 #btn-tablet:hover {
